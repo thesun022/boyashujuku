@@ -1,0 +1,269 @@
+erDiagram
+  person {
+    bigint id PK
+    varchar(40) person_code UK
+    varchar(100) display_name
+    varchar(160) contact
+    datetime(6) created_at
+  }
+  cohort {
+    bigint id PK
+    varchar(20) code UK
+    varchar(80) label
+    smallint intake_year
+  }
+  membership_period {
+    bigint id PK
+    bigint person_id FK
+    bigint cohort_id FK
+    datetime(6) joined_at
+    datetime(6) left_at
+    bigint open_person_id
+  }
+  position {
+    varchar(20) code PK
+    varchar(60) label UK
+    tinyint hierarchy_rank UK
+  }
+  membership_position {
+    bigint id PK
+    bigint membership_id FK
+    varchar(20) position_code FK
+    datetime(6) starts_at
+    datetime(6) ends_at
+  }
+  skill {
+    bigint id PK
+    varchar(40) code UK
+    varchar(60) label UK
+  }
+  person_skill {
+    bigint person_id PK, FK
+    bigint skill_id PK, FK
+  }
+  account {
+    bigint id PK
+    bigint person_id FK, UK
+    varchar(80) username UK
+    varchar(255) password_hash
+    boolean enabled
+    datetime(6) created_at
+  }
+  system_role {
+    varchar(40) code PK
+    varchar(80) label UK
+  }
+  permission {
+    varchar(40) code PK
+    varchar(80) label UK
+  }
+  role_permission {
+    varchar(40) role_code PK, FK
+    varchar(40) permission_code PK, FK
+  }
+  account_role {
+    bigint account_id PK, FK
+    varchar(40) role_code PK, FK
+  }
+  campaign {
+    bigint id PK
+    varchar(40) code UK
+    varchar(180) title
+    datetime(6) starts_at
+    datetime(6) ends_at
+    boolean requires_third_review
+    bigint created_by FK
+  }
+  project {
+    bigint id PK
+    bigint campaign_id FK
+    varchar(40) code
+    varchar(180) title
+    enum kind
+    enum delivery_mode
+    boolean is_required
+    bigint created_by FK
+  }
+  project_review_route {
+    bigint project_id PK, FK
+    enum stage PK
+    bigint reviewer_id FK
+  }
+  work_item {
+    bigint id PK
+    bigint project_id FK
+    varchar(40) code
+    varchar(180) title
+    enum kind
+    enum editing_mode
+    boolean is_required
+    enum status
+    int lock_version
+    bigint changed_by FK
+    datetime(6) updated_at
+    varchar(20) single_kind
+  }
+  work_assignment {
+    bigint id PK
+    bigint work_item_id FK
+    bigint membership_id FK
+    bigint assigned_by FK
+    datetime(6) assigned_at
+    datetime(6) ended_at
+    bigint active_membership_id
+  }
+  work_contribution {
+    bigint id PK
+    bigint work_item_id FK
+    bigint membership_id FK
+    enum participation
+    datetime(6) worked_at
+    smallint minutes_spent
+    varchar(500) note
+    bigint recorded_by FK
+  }
+  work_status_history {
+    bigint id PK
+    bigint work_item_id FK
+    enum old_status
+    enum new_status
+    int lock_version
+    bigint changed_by FK
+    datetime(6) changed_at
+  }
+  asset {
+    bigint id PK
+    enum kind
+    varchar(180) title
+    varchar(1024) uri
+    binary(32) sha256
+    bigint creator_id FK
+    datetime(6) created_at
+  }
+  project_asset {
+    bigint project_id PK, FK
+    bigint asset_id PK, FK
+  }
+  submission {
+    bigint id PK
+    bigint project_id FK
+    int version_no
+    bigint previous_id FK
+    enum kind
+    enum start_stage
+    boolean third_required
+    bigint submitted_by FK
+    datetime(6) submitted_at
+    varchar(500) note
+  }
+  submission_asset {
+    bigint submission_id PK, FK
+    bigint asset_id PK, FK
+  }
+  review_record {
+    bigint id PK
+    bigint submission_id FK
+    enum stage
+    bigint reviewer_id FK
+    bigint membership_id FK
+    enum decision
+    varchar(1000) feedback
+    datetime(6) reviewed_at
+  }
+  handover_record {
+    bigint id PK
+    bigint submission_id FK
+    bigint from_person_id FK
+    bigint to_person_id FK
+    enum to_stage
+    varchar(500) note
+    datetime(6) handed_at
+  }
+  publication {
+    bigint id PK
+    bigint submission_id FK, UK
+    varchar(60) channel
+    varchar(1024) url
+    bigint published_by FK
+    datetime(6) published_at
+  }
+  equipment {
+    bigint id PK
+    varchar(40) code UK
+    varchar(100) name
+    varchar(100) model
+    enum source
+    enum inventory_status
+    datetime(6) borrowed_at
+    datetime(6) due_back_at
+    datetime(6) external_returned_at
+  }
+  equipment_usage {
+    bigint id PK
+    bigint equipment_id FK
+    bigint work_item_id FK
+    bigint membership_id FK
+    bigint reserved_by FK
+    datetime(6) starts_at
+    datetime(6) ends_at
+    datetime(6) checked_out_at
+    datetime(6) returned_at
+    datetime(6) cancelled_at
+  }
+  audit_log {
+    bigint id PK
+    bigint actor_id FK
+    varchar(320) db_session_user
+    varchar(48) action_code
+    varchar(40) entity_type
+    bigint entity_id
+    json detail
+    datetime(6) occurred_at
+  }
+  person ||--o{ membership_period : person_id
+  cohort ||--o{ membership_period : cohort_id
+  membership_period ||--o{ membership_position : membership_id
+  position ||--o{ membership_position : position_code
+  person ||--o{ person_skill : person_id
+  skill ||--o{ person_skill : skill_id
+  person ||--o| account : person_id
+  system_role ||--o{ role_permission : role_code
+  permission ||--o{ role_permission : permission_code
+  account ||--o{ account_role : account_id
+  system_role ||--o{ account_role : role_code
+  person ||--o{ campaign : created_by
+  campaign ||--o{ project : campaign_id
+  person ||--o{ project : created_by
+  project ||--o{ project_review_route : project_id
+  person ||--o{ project_review_route : reviewer_id
+  project ||--o{ work_item : project_id
+  person ||--o{ work_item : changed_by
+  work_item ||--o{ work_assignment : work_item_id
+  membership_period ||--o{ work_assignment : membership_id
+  person ||--o{ work_assignment : assigned_by
+  work_item ||--o{ work_contribution : work_item_id
+  membership_period ||--o{ work_contribution : membership_id
+  person ||--o{ work_contribution : recorded_by
+  work_item ||--o{ work_status_history : work_item_id
+  person ||--o{ work_status_history : changed_by
+  person ||--o{ asset : creator_id
+  project ||--o{ project_asset : project_id
+  asset ||--o{ project_asset : asset_id
+  project ||--o{ submission : project_id
+  submission |o--o{ submission : previous_id
+  person ||--o{ submission : submitted_by
+  submission ||--o{ submission_asset : submission_id
+  asset ||--o{ submission_asset : asset_id
+  submission ||--o{ review_record : submission_id
+  person ||--o{ review_record : reviewer_id
+  membership_period |o--o{ review_record : membership_id
+  submission ||--o{ handover_record : submission_id
+  person ||--o{ handover_record : from_person_id
+  person |o--o{ handover_record : to_person_id
+  submission ||--o| publication : submission_id
+  person ||--o{ publication : published_by
+  equipment ||--o{ equipment_usage : equipment_id
+  work_item ||--o{ equipment_usage : work_item_id
+  membership_period ||--o{ equipment_usage : membership_id
+  person ||--o{ equipment_usage : reserved_by
+  person |o--o{ audit_log : actor_id

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock %}
+{% block body %}
+<main class="login-layout">
+  <section class="login-brand" aria-label="山大博雅传媒中心">
+    <div class="wordmark">
+      <img class="brand-mark" src="{{ url_for('static', filename='boya.png') }}" alt="" width="1080" height="1070">
+      山大博雅传媒中心
+    </div>
+    <div class="brand-title">
+      <span class="brand-rule"></span>
+      <h1>综合业务<br>管理系统</h1>
+    </div>
+    <div class="brand-art" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  </section>
+  <section class="login-main" aria-labelledby="login-heading">
+    <div class="login-card">
+      <h2 id="login-heading">账号登录</h2>
+      <p class="text-secondary mb-4">使用你的工作账号进入管理系统。</p>
+      {% if error %}<p class="alert alert-danger" role="alert">{{ error }}</p>{% endif %}
+      <form method="post" action="{{ url_for('auth.login') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label class="form-label" for="username">账号</label>
+          <input class="form-control" id="username" name="username" required maxlength="80"
+                 value="{{ username|default('') }}" autocomplete="username" autocapitalize="none" spellcheck="false">
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="password">密码</label>
+          <input class="form-control" id="password" name="password" type="password" required
+                 maxlength="256" autocomplete="current-password">
+        </div>
+        <button class="btn btn-primary w-100" type="submit">登录 <span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+  </section>
+</main>
+{% endblock %}

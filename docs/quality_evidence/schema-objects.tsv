@@ -1,0 +1,379 @@
+PASS	CHECK	account	ck_account_enabled	YES	YES
+PASS	CHECK	account	ck_account_hash	YES	YES
+PASS	CHECK	asset	ck_asset_uri	YES	YES
+PASS	CHECK	campaign	ck_campaign_dates	YES	YES
+PASS	CHECK	campaign	ck_campaign_third	YES	YES
+PASS	CHECK	cohort	ck_cohort_year	YES	YES
+PASS	CHECK	equipment	ck_equipment_source	YES	YES
+PASS	CHECK	equipment_usage	ck_usage_cancel	YES	YES
+PASS	CHECK	equipment_usage	ck_usage_checkout	YES	YES
+PASS	CHECK	equipment_usage	ck_usage_range	YES	YES
+PASS	CHECK	equipment_usage	ck_usage_return	YES	YES
+PASS	CHECK	handover_record	ck_handover_recipient	YES	YES
+PASS	CHECK	membership_period	ck_membership_dates	YES	YES
+PASS	CHECK	membership_position	ck_position_dates	YES	YES
+PASS	CHECK	project	ck_project_delivery	YES	YES
+PASS	CHECK	project	ck_project_required	YES	YES
+PASS	CHECK	publication	ck_publication_url	YES	YES
+PASS	CHECK	review_record	ck_review_feedback	YES	YES
+PASS	CHECK	submission	ck_submission_third	YES	YES
+PASS	CHECK	submission	ck_submission_version	YES	YES
+PASS	CHECK	work_assignment	ck_assignment_dates	YES	YES
+PASS	CHECK	work_contribution	ck_contribution_minutes	YES	YES
+PASS	CHECK	work_item	ck_work_editing	YES	YES
+PASS	CHECK	work_item	ck_work_required	YES	YES
+PASS	FOREIGN KEY	account	fk_account_person_id	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	account_role	fk_account_role_account_id	account_id -> account(id); DELETE BLOCK; UPDATE BLOCK	account_id -> account(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	account_role	fk_account_role_role_code	role_code -> system_role(code); DELETE BLOCK; UPDATE BLOCK	role_code -> system_role(code); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	asset	fk_asset_creator_id	creator_id -> person(id); DELETE BLOCK; UPDATE BLOCK	creator_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	audit_log	fk_audit_log_actor_id	actor_id -> person(id); DELETE BLOCK; UPDATE BLOCK	actor_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	campaign	fk_campaign_created_by	created_by -> person(id); DELETE BLOCK; UPDATE BLOCK	created_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	equipment_usage	fk_equipment_usage_equipment_id	equipment_id -> equipment(id); DELETE BLOCK; UPDATE BLOCK	equipment_id -> equipment(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	equipment_usage	fk_equipment_usage_membership_id	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	equipment_usage	fk_equipment_usage_reserved_by	reserved_by -> person(id); DELETE BLOCK; UPDATE BLOCK	reserved_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	equipment_usage	fk_equipment_usage_work_item_id	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	handover_record	fk_handover_record_from_person_id	from_person_id -> person(id); DELETE BLOCK; UPDATE BLOCK	from_person_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	handover_record	fk_handover_record_submission_id	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	handover_record	fk_handover_record_to_person_id	to_person_id -> person(id); DELETE BLOCK; UPDATE BLOCK	to_person_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	membership_period	fk_membership_period_cohort_id	cohort_id -> cohort(id); DELETE BLOCK; UPDATE BLOCK	cohort_id -> cohort(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	membership_period	fk_membership_period_person_id	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	membership_position	fk_membership_position_membership_id	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	membership_position	fk_membership_position_position_code	position_code -> position(code); DELETE BLOCK; UPDATE BLOCK	position_code -> position(code); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	person_skill	fk_person_skill_person_id	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK	person_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	person_skill	fk_person_skill_skill_id	skill_id -> skill(id); DELETE BLOCK; UPDATE BLOCK	skill_id -> skill(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project	fk_project_campaign_id	campaign_id -> campaign(id); DELETE BLOCK; UPDATE BLOCK	campaign_id -> campaign(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project	fk_project_created_by	created_by -> person(id); DELETE BLOCK; UPDATE BLOCK	created_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project_asset	fk_project_asset_asset_id	asset_id -> asset(id); DELETE BLOCK; UPDATE BLOCK	asset_id -> asset(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project_asset	fk_project_asset_project_id	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project_review_route	fk_project_review_route_project_id	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	project_review_route	fk_project_review_route_reviewer_id	reviewer_id -> person(id); DELETE BLOCK; UPDATE BLOCK	reviewer_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	publication	fk_publication_published_by	published_by -> person(id); DELETE BLOCK; UPDATE BLOCK	published_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	publication	fk_publication_submission_id	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	review_record	fk_review_record_membership_id	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	review_record	fk_review_record_reviewer_id	reviewer_id -> person(id); DELETE BLOCK; UPDATE BLOCK	reviewer_id -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	review_record	fk_review_record_submission_id	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	role_permission	fk_role_permission_permission_code	permission_code -> permission(code); DELETE BLOCK; UPDATE BLOCK	permission_code -> permission(code); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	role_permission	fk_role_permission_role_code	role_code -> system_role(code); DELETE BLOCK; UPDATE BLOCK	role_code -> system_role(code); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	submission	fk_submission_previous_id	previous_id -> submission(id); DELETE BLOCK; UPDATE BLOCK	previous_id -> submission(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	submission	fk_submission_project_id	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	submission	fk_submission_submitted_by	submitted_by -> person(id); DELETE BLOCK; UPDATE BLOCK	submitted_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	submission_asset	fk_submission_asset_asset_id	asset_id -> asset(id); DELETE BLOCK; UPDATE BLOCK	asset_id -> asset(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	submission_asset	fk_submission_asset_submission_id	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK	submission_id -> submission(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_assignment	fk_work_assignment_assigned_by	assigned_by -> person(id); DELETE BLOCK; UPDATE BLOCK	assigned_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_assignment	fk_work_assignment_membership_id	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_assignment	fk_work_assignment_work_item_id	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_contribution	fk_work_contribution_membership_id	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK	membership_id -> membership_period(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_contribution	fk_work_contribution_recorded_by	recorded_by -> person(id); DELETE BLOCK; UPDATE BLOCK	recorded_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_contribution	fk_work_contribution_work_item_id	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_item	fk_work_item_changed_by	changed_by -> person(id); DELETE BLOCK; UPDATE BLOCK	changed_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_item	fk_work_item_project_id	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK	project_id -> project(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_status_history	fk_work_status_history_changed_by	changed_by -> person(id); DELETE BLOCK; UPDATE BLOCK	changed_by -> person(id); DELETE BLOCK; UPDATE BLOCK
+PASS	FOREIGN KEY	work_status_history	fk_work_status_history_work_item_id	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK	work_item_id -> work_item(id); DELETE BLOCK; UPDATE BLOCK
+PASS	INDEX	account	person_id	0;BTREE;YES;person_id	0;BTREE;YES;person_id
+PASS	INDEX	account	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	account	username	0;BTREE;YES;username	0;BTREE;YES;username
+PASS	INDEX	account_role	fk_account_role_role_code	1;BTREE;YES;role_code	1;BTREE;YES;role_code
+PASS	INDEX	account_role	PRIMARY	0;BTREE;YES;account_id,role_code	0;BTREE;YES;account_id,role_code
+PASS	INDEX	asset	ix_asset_creator_kind	1;BTREE;YES;creator_id,kind	1;BTREE;YES;creator_id,kind
+PASS	INDEX	asset	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	audit_log	ix_audit_actor_time	1;BTREE;YES;actor_id,occurred_at	1;BTREE;YES;actor_id,occurred_at
+PASS	INDEX	audit_log	ix_audit_entity_time	1;BTREE;YES;entity_type,entity_id,occurred_at	1;BTREE;YES;entity_type,entity_id,occurred_at
+PASS	INDEX	audit_log	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	campaign	code	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	campaign	fk_campaign_created_by	1;BTREE;YES;created_by	1;BTREE;YES;created_by
+PASS	INDEX	campaign	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	cohort	code	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	cohort	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	equipment	code	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	equipment	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	equipment_usage	fk_equipment_usage_membership_id	1;BTREE;YES;membership_id	1;BTREE;YES;membership_id
+PASS	INDEX	equipment_usage	fk_equipment_usage_reserved_by	1;BTREE;YES;reserved_by	1;BTREE;YES;reserved_by
+PASS	INDEX	equipment_usage	fk_equipment_usage_work_item_id	1;BTREE;YES;work_item_id	1;BTREE;YES;work_item_id
+PASS	INDEX	equipment_usage	ix_equipment_usage_open	1;BTREE;YES;equipment_id,returned_at,checked_out_at	1;BTREE;YES;equipment_id,returned_at,checked_out_at
+PASS	INDEX	equipment_usage	ix_equipment_usage_range	1;BTREE;YES;equipment_id,starts_at,ends_at	1;BTREE;YES;equipment_id,starts_at,ends_at
+PASS	INDEX	equipment_usage	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	handover_record	fk_handover_record_from_person_id	1;BTREE;YES;from_person_id	1;BTREE;YES;from_person_id
+PASS	INDEX	handover_record	fk_handover_record_to_person_id	1;BTREE;YES;to_person_id	1;BTREE;YES;to_person_id
+PASS	INDEX	handover_record	ix_handover_submission_order	1;BTREE;YES;submission_id,id	1;BTREE;YES;submission_id,id
+PASS	INDEX	handover_record	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	membership_period	ix_membership_period_cohort	1;BTREE;YES;cohort_id,joined_at	1;BTREE;YES;cohort_id,joined_at
+PASS	INDEX	membership_period	ix_membership_period_person_dates	1;BTREE;YES;person_id,joined_at,left_at	1;BTREE;YES;person_id,joined_at,left_at
+PASS	INDEX	membership_period	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	membership_period	uq_membership_open	0;BTREE;YES;open_person_id	0;BTREE;YES;open_person_id
+PASS	INDEX	membership_position	fk_membership_position_position_code	1;BTREE;YES;position_code	1;BTREE;YES;position_code
+PASS	INDEX	membership_position	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	membership_position	uq_position_start	0;BTREE;YES;membership_id,starts_at	0;BTREE;YES;membership_id,starts_at
+PASS	INDEX	permission	label	0;BTREE;YES;label	0;BTREE;YES;label
+PASS	INDEX	permission	PRIMARY	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	person	person_code	0;BTREE;YES;person_code	0;BTREE;YES;person_code
+PASS	INDEX	person	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	person_skill	fk_person_skill_skill_id	1;BTREE;YES;skill_id	1;BTREE;YES;skill_id
+PASS	INDEX	person_skill	PRIMARY	0;BTREE;YES;person_id,skill_id	0;BTREE;YES;person_id,skill_id
+PASS	INDEX	position	hierarchy_rank	0;BTREE;YES;hierarchy_rank	0;BTREE;YES;hierarchy_rank
+PASS	INDEX	position	label	0;BTREE;YES;label	0;BTREE;YES;label
+PASS	INDEX	position	PRIMARY	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	project	fk_project_created_by	1;BTREE;YES;created_by	1;BTREE;YES;created_by
+PASS	INDEX	project	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	project	uq_project_code	0;BTREE;YES;campaign_id,code	0;BTREE;YES;campaign_id,code
+PASS	INDEX	project_asset	fk_project_asset_asset_id	1;BTREE;YES;asset_id	1;BTREE;YES;asset_id
+PASS	INDEX	project_asset	PRIMARY	0;BTREE;YES;project_id,asset_id	0;BTREE;YES;project_id,asset_id
+PASS	INDEX	project_review_route	fk_project_review_route_reviewer_id	1;BTREE;YES;reviewer_id	1;BTREE;YES;reviewer_id
+PASS	INDEX	project_review_route	PRIMARY	0;BTREE;YES;project_id,stage	0;BTREE;YES;project_id,stage
+PASS	INDEX	project_review_route	uq_route_reviewer	0;BTREE;YES;project_id,reviewer_id	0;BTREE;YES;project_id,reviewer_id
+PASS	INDEX	publication	fk_publication_published_by	1;BTREE;YES;published_by	1;BTREE;YES;published_by
+PASS	INDEX	publication	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	publication	submission_id	0;BTREE;YES;submission_id	0;BTREE;YES;submission_id
+PASS	INDEX	review_record	fk_review_record_reviewer_id	1;BTREE;YES;reviewer_id	1;BTREE;YES;reviewer_id
+PASS	INDEX	review_record	ix_review_membership_time	1;BTREE;YES;membership_id,reviewed_at	1;BTREE;YES;membership_id,reviewed_at
+PASS	INDEX	review_record	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	review_record	uq_review_stage	0;BTREE;YES;submission_id,stage	0;BTREE;YES;submission_id,stage
+PASS	INDEX	role_permission	fk_role_permission_permission_code	1;BTREE;YES;permission_code	1;BTREE;YES;permission_code
+PASS	INDEX	role_permission	PRIMARY	0;BTREE;YES;role_code,permission_code	0;BTREE;YES;role_code,permission_code
+PASS	INDEX	skill	code	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	skill	label	0;BTREE;YES;label	0;BTREE;YES;label
+PASS	INDEX	skill	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	submission	fk_submission_submitted_by	1;BTREE;YES;submitted_by	1;BTREE;YES;submitted_by
+PASS	INDEX	submission	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	submission	uq_submission_previous	0;BTREE;YES;previous_id	0;BTREE;YES;previous_id
+PASS	INDEX	submission	uq_submission_version	0;BTREE;YES;project_id,version_no	0;BTREE;YES;project_id,version_no
+PASS	INDEX	submission_asset	fk_submission_asset_asset_id	1;BTREE;YES;asset_id	1;BTREE;YES;asset_id
+PASS	INDEX	submission_asset	PRIMARY	0;BTREE;YES;submission_id,asset_id	0;BTREE;YES;submission_id,asset_id
+PASS	INDEX	system_role	label	0;BTREE;YES;label	0;BTREE;YES;label
+PASS	INDEX	system_role	PRIMARY	0;BTREE;YES;code	0;BTREE;YES;code
+PASS	INDEX	work_assignment	fk_work_assignment_assigned_by	1;BTREE;YES;assigned_by	1;BTREE;YES;assigned_by
+PASS	INDEX	work_assignment	fk_work_assignment_membership_id	1;BTREE;YES;membership_id	1;BTREE;YES;membership_id
+PASS	INDEX	work_assignment	ix_work_assignment_current	1;BTREE;YES;work_item_id,ended_at	1;BTREE;YES;work_item_id,ended_at
+PASS	INDEX	work_assignment	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	work_assignment	uq_assignment_active	0;BTREE;YES;work_item_id,active_membership_id	0;BTREE;YES;work_item_id,active_membership_id
+PASS	INDEX	work_contribution	fk_work_contribution_recorded_by	1;BTREE;YES;recorded_by	1;BTREE;YES;recorded_by
+PASS	INDEX	work_contribution	ix_work_contribution_member_date	1;BTREE;YES;membership_id,worked_at	1;BTREE;YES;membership_id,worked_at
+PASS	INDEX	work_contribution	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	work_contribution	uq_contribution_time	0;BTREE;YES;work_item_id,membership_id,worked_at	0;BTREE;YES;work_item_id,membership_id,worked_at
+PASS	INDEX	work_item	fk_work_item_changed_by	1;BTREE;YES;changed_by	1;BTREE;YES;changed_by
+PASS	INDEX	work_item	ix_work_item_project_required	1;BTREE;YES;project_id,is_required,status	1;BTREE;YES;project_id,is_required,status
+PASS	INDEX	work_item	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	work_item	uq_work_code	0;BTREE;YES;project_id,code	0;BTREE;YES;project_id,code
+PASS	INDEX	work_item	uq_work_single_kind	0;BTREE;YES;project_id,single_kind	0;BTREE;YES;project_id,single_kind
+PASS	INDEX	work_status_history	fk_work_status_history_changed_by	1;BTREE;YES;changed_by	1;BTREE;YES;changed_by
+PASS	INDEX	work_status_history	PRIMARY	0;BTREE;YES;id	0;BTREE;YES;id
+PASS	INDEX	work_status_history	uq_history_version	0;BTREE;YES;work_item_id,lock_version	0;BTREE;YES;work_item_id,lock_version
+PASS	NOT NULL	account	created_at	NO	NO
+PASS	NOT NULL	account	enabled	NO	NO
+PASS	NOT NULL	account	id	NO	NO
+PASS	NOT NULL	account	password_hash	NO	NO
+PASS	NOT NULL	account	person_id	NO	NO
+PASS	NOT NULL	account	username	NO	NO
+PASS	NOT NULL	account_role	account_id	NO	NO
+PASS	NOT NULL	account_role	role_code	NO	NO
+PASS	NOT NULL	asset	created_at	NO	NO
+PASS	NOT NULL	asset	creator_id	NO	NO
+PASS	NOT NULL	asset	id	NO	NO
+PASS	NOT NULL	asset	kind	NO	NO
+PASS	NOT NULL	asset	title	NO	NO
+PASS	NOT NULL	asset	uri	NO	NO
+PASS	NOT NULL	audit_log	action_code	NO	NO
+PASS	NOT NULL	audit_log	db_session_user	NO	NO
+PASS	NOT NULL	audit_log	entity_id	NO	NO
+PASS	NOT NULL	audit_log	entity_type	NO	NO
+PASS	NOT NULL	audit_log	id	NO	NO
+PASS	NOT NULL	audit_log	occurred_at	NO	NO
+PASS	NOT NULL	campaign	code	NO	NO
+PASS	NOT NULL	campaign	created_by	NO	NO
+PASS	NOT NULL	campaign	id	NO	NO
+PASS	NOT NULL	campaign	requires_third_review	NO	NO
+PASS	NOT NULL	campaign	starts_at	NO	NO
+PASS	NOT NULL	campaign	title	NO	NO
+PASS	NOT NULL	cohort	code	NO	NO
+PASS	NOT NULL	cohort	id	NO	NO
+PASS	NOT NULL	cohort	intake_year	NO	NO
+PASS	NOT NULL	cohort	label	NO	NO
+PASS	NOT NULL	equipment	code	NO	NO
+PASS	NOT NULL	equipment	id	NO	NO
+PASS	NOT NULL	equipment	inventory_status	NO	NO
+PASS	NOT NULL	equipment	model	NO	NO
+PASS	NOT NULL	equipment	name	NO	NO
+PASS	NOT NULL	equipment	source	NO	NO
+PASS	NOT NULL	equipment_usage	ends_at	NO	NO
+PASS	NOT NULL	equipment_usage	equipment_id	NO	NO
+PASS	NOT NULL	equipment_usage	id	NO	NO
+PASS	NOT NULL	equipment_usage	membership_id	NO	NO
+PASS	NOT NULL	equipment_usage	reserved_by	NO	NO
+PASS	NOT NULL	equipment_usage	starts_at	NO	NO
+PASS	NOT NULL	equipment_usage	work_item_id	NO	NO
+PASS	NOT NULL	handover_record	from_person_id	NO	NO
+PASS	NOT NULL	handover_record	handed_at	NO	NO
+PASS	NOT NULL	handover_record	id	NO	NO
+PASS	NOT NULL	handover_record	submission_id	NO	NO
+PASS	NOT NULL	handover_record	to_stage	NO	NO
+PASS	NOT NULL	membership_period	cohort_id	NO	NO
+PASS	NOT NULL	membership_period	id	NO	NO
+PASS	NOT NULL	membership_period	joined_at	NO	NO
+PASS	NOT NULL	membership_period	person_id	NO	NO
+PASS	NOT NULL	membership_position	id	NO	NO
+PASS	NOT NULL	membership_position	membership_id	NO	NO
+PASS	NOT NULL	membership_position	position_code	NO	NO
+PASS	NOT NULL	membership_position	starts_at	NO	NO
+PASS	NOT NULL	permission	code	NO	NO
+PASS	NOT NULL	permission	label	NO	NO
+PASS	NOT NULL	person	created_at	NO	NO
+PASS	NOT NULL	person	display_name	NO	NO
+PASS	NOT NULL	person	id	NO	NO
+PASS	NOT NULL	person	person_code	NO	NO
+PASS	NOT NULL	person_skill	person_id	NO	NO
+PASS	NOT NULL	person_skill	skill_id	NO	NO
+PASS	NOT NULL	position	code	NO	NO
+PASS	NOT NULL	position	hierarchy_rank	NO	NO
+PASS	NOT NULL	position	label	NO	NO
+PASS	NOT NULL	project	campaign_id	NO	NO
+PASS	NOT NULL	project	code	NO	NO
+PASS	NOT NULL	project	created_by	NO	NO
+PASS	NOT NULL	project	delivery_mode	NO	NO
+PASS	NOT NULL	project	id	NO	NO
+PASS	NOT NULL	project	is_required	NO	NO
+PASS	NOT NULL	project	kind	NO	NO
+PASS	NOT NULL	project	title	NO	NO
+PASS	NOT NULL	project_asset	asset_id	NO	NO
+PASS	NOT NULL	project_asset	project_id	NO	NO
+PASS	NOT NULL	project_review_route	project_id	NO	NO
+PASS	NOT NULL	project_review_route	reviewer_id	NO	NO
+PASS	NOT NULL	project_review_route	stage	NO	NO
+PASS	NOT NULL	publication	channel	NO	NO
+PASS	NOT NULL	publication	id	NO	NO
+PASS	NOT NULL	publication	published_at	NO	NO
+PASS	NOT NULL	publication	published_by	NO	NO
+PASS	NOT NULL	publication	submission_id	NO	NO
+PASS	NOT NULL	publication	url	NO	NO
+PASS	NOT NULL	review_record	decision	NO	NO
+PASS	NOT NULL	review_record	feedback	NO	NO
+PASS	NOT NULL	review_record	id	NO	NO
+PASS	NOT NULL	review_record	reviewed_at	NO	NO
+PASS	NOT NULL	review_record	reviewer_id	NO	NO
+PASS	NOT NULL	review_record	stage	NO	NO
+PASS	NOT NULL	review_record	submission_id	NO	NO
+PASS	NOT NULL	role_permission	permission_code	NO	NO
+PASS	NOT NULL	role_permission	role_code	NO	NO
+PASS	NOT NULL	skill	code	NO	NO
+PASS	NOT NULL	skill	id	NO	NO
+PASS	NOT NULL	skill	label	NO	NO
+PASS	NOT NULL	submission	id	NO	NO
+PASS	NOT NULL	submission	kind	NO	NO
+PASS	NOT NULL	submission	project_id	NO	NO
+PASS	NOT NULL	submission	start_stage	NO	NO
+PASS	NOT NULL	submission	submitted_at	NO	NO
+PASS	NOT NULL	submission	submitted_by	NO	NO
+PASS	NOT NULL	submission	version_no	NO	NO
+PASS	NOT NULL	submission_asset	asset_id	NO	NO
+PASS	NOT NULL	submission_asset	submission_id	NO	NO
+PASS	NOT NULL	system_role	code	NO	NO
+PASS	NOT NULL	system_role	label	NO	NO
+PASS	NOT NULL	work_assignment	assigned_at	NO	NO
+PASS	NOT NULL	work_assignment	assigned_by	NO	NO
+PASS	NOT NULL	work_assignment	id	NO	NO
+PASS	NOT NULL	work_assignment	membership_id	NO	NO
+PASS	NOT NULL	work_assignment	work_item_id	NO	NO
+PASS	NOT NULL	work_contribution	id	NO	NO
+PASS	NOT NULL	work_contribution	membership_id	NO	NO
+PASS	NOT NULL	work_contribution	minutes_spent	NO	NO
+PASS	NOT NULL	work_contribution	participation	NO	NO
+PASS	NOT NULL	work_contribution	recorded_by	NO	NO
+PASS	NOT NULL	work_contribution	work_item_id	NO	NO
+PASS	NOT NULL	work_contribution	worked_at	NO	NO
+PASS	NOT NULL	work_item	changed_by	NO	NO
+PASS	NOT NULL	work_item	code	NO	NO
+PASS	NOT NULL	work_item	id	NO	NO
+PASS	NOT NULL	work_item	is_required	NO	NO
+PASS	NOT NULL	work_item	kind	NO	NO
+PASS	NOT NULL	work_item	lock_version	NO	NO
+PASS	NOT NULL	work_item	project_id	NO	NO
+PASS	NOT NULL	work_item	status	NO	NO
+PASS	NOT NULL	work_item	title	NO	NO
+PASS	NOT NULL	work_item	updated_at	NO	NO
+PASS	NOT NULL	work_status_history	changed_at	NO	NO
+PASS	NOT NULL	work_status_history	changed_by	NO	NO
+PASS	NOT NULL	work_status_history	id	NO	NO
+PASS	NOT NULL	work_status_history	lock_version	NO	NO
+PASS	NOT NULL	work_status_history	new_status	NO	NO
+PASS	NOT NULL	work_status_history	work_item_id	NO	NO
+PASS	PRIMARY KEY	account	PRIMARY	id	id
+PASS	PRIMARY KEY	account_role	PRIMARY	account_id,role_code	account_id,role_code
+PASS	PRIMARY KEY	asset	PRIMARY	id	id
+PASS	PRIMARY KEY	audit_log	PRIMARY	id	id
+PASS	PRIMARY KEY	campaign	PRIMARY	id	id
+PASS	PRIMARY KEY	cohort	PRIMARY	id	id
+PASS	PRIMARY KEY	equipment	PRIMARY	id	id
+PASS	PRIMARY KEY	equipment_usage	PRIMARY	id	id
+PASS	PRIMARY KEY	handover_record	PRIMARY	id	id
+PASS	PRIMARY KEY	membership_period	PRIMARY	id	id
+PASS	PRIMARY KEY	membership_position	PRIMARY	id	id
+PASS	PRIMARY KEY	permission	PRIMARY	code	code
+PASS	PRIMARY KEY	person	PRIMARY	id	id
+PASS	PRIMARY KEY	person_skill	PRIMARY	person_id,skill_id	person_id,skill_id
+PASS	PRIMARY KEY	position	PRIMARY	code	code
+PASS	PRIMARY KEY	project	PRIMARY	id	id
+PASS	PRIMARY KEY	project_asset	PRIMARY	project_id,asset_id	project_id,asset_id
+PASS	PRIMARY KEY	project_review_route	PRIMARY	project_id,stage	project_id,stage
+PASS	PRIMARY KEY	publication	PRIMARY	id	id
+PASS	PRIMARY KEY	review_record	PRIMARY	id	id
+PASS	PRIMARY KEY	role_permission	PRIMARY	role_code,permission_code	role_code,permission_code
+PASS	PRIMARY KEY	skill	PRIMARY	id	id
+PASS	PRIMARY KEY	submission	PRIMARY	id	id
+PASS	PRIMARY KEY	submission_asset	PRIMARY	submission_id,asset_id	submission_id,asset_id
+PASS	PRIMARY KEY	system_role	PRIMARY	code	code
+PASS	PRIMARY KEY	work_assignment	PRIMARY	id	id
+PASS	PRIMARY KEY	work_contribution	PRIMARY	id	id
+PASS	PRIMARY KEY	work_item	PRIMARY	id	id
+PASS	PRIMARY KEY	work_status_history	PRIMARY	id	id
+PASS	TRIGGER	account	ai_account	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	account	au_account	AFTER UPDATE	AFTER UPDATE
+PASS	TRIGGER	account_role	ad_account_role	AFTER DELETE	AFTER DELETE
+PASS	TRIGGER	account_role	ai_account_role	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	audit_log	bd_audit_log	BEFORE DELETE	BEFORE DELETE
+PASS	TRIGGER	audit_log	bu_audit_log	BEFORE UPDATE	BEFORE UPDATE
+PASS	TRIGGER	equipment_usage	bi_equipment_usage	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	equipment_usage	bu_equipment_usage	BEFORE UPDATE	BEFORE UPDATE
+PASS	TRIGGER	membership_period	ai_membership_period	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	membership_period	au_membership_period	AFTER UPDATE	AFTER UPDATE
+PASS	TRIGGER	membership_period	bi_membership_period	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	membership_period	bu_membership_period	BEFORE UPDATE	BEFORE UPDATE
+PASS	TRIGGER	membership_position	bi_membership_position	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	membership_position	bu_membership_position	BEFORE UPDATE	BEFORE UPDATE
+PASS	TRIGGER	publication	ai_publication	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	publication	bi_publication	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	role_permission	ad_role_permission	AFTER DELETE	AFTER DELETE
+PASS	TRIGGER	role_permission	ai_role_permission	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	work_assignment	bi_work_assignment	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	work_assignment	bu_work_assignment	BEFORE UPDATE	BEFORE UPDATE
+PASS	TRIGGER	work_contribution	bi_work_contribution	BEFORE INSERT	BEFORE INSERT
+PASS	TRIGGER	work_item	ai_work_item	AFTER INSERT	AFTER INSERT
+PASS	TRIGGER	work_item	au_work_item	AFTER UPDATE	AFTER UPDATE
+PASS	TRIGGER	work_item	bu_work_item	BEFORE UPDATE	BEFORE UPDATE
+PASS	UNIQUE	account	person_id	person_id	person_id
+PASS	UNIQUE	account	username	username	username
+PASS	UNIQUE	campaign	code	code	code
+PASS	UNIQUE	cohort	code	code	code
+PASS	UNIQUE	equipment	code	code	code
+PASS	UNIQUE	membership_period	uq_membership_open	open_person_id	open_person_id
+PASS	UNIQUE	membership_position	uq_position_start	membership_id,starts_at	membership_id,starts_at
+PASS	UNIQUE	permission	label	label	label
+PASS	UNIQUE	person	person_code	person_code	person_code
+PASS	UNIQUE	position	hierarchy_rank	hierarchy_rank	hierarchy_rank
+PASS	UNIQUE	position	label	label	label
+PASS	UNIQUE	project	uq_project_code	campaign_id,code	campaign_id,code
+PASS	UNIQUE	project_review_route	uq_route_reviewer	project_id,reviewer_id	project_id,reviewer_id
+PASS	UNIQUE	publication	submission_id	submission_id	submission_id
+PASS	UNIQUE	review_record	uq_review_stage	submission_id,stage	submission_id,stage
+PASS	UNIQUE	skill	code	code	code
+PASS	UNIQUE	skill	label	label	label
+PASS	UNIQUE	submission	uq_submission_previous	previous_id	previous_id
+PASS	UNIQUE	submission	uq_submission_version	project_id,version_no	project_id,version_no
+PASS	UNIQUE	system_role	label	label	label
+PASS	UNIQUE	work_assignment	uq_assignment_active	work_item_id,active_membership_id	work_item_id,active_membership_id
+PASS	UNIQUE	work_contribution	uq_contribution_time	work_item_id,membership_id,worked_at	work_item_id,membership_id,worked_at
+PASS	UNIQUE	work_item	uq_work_code	project_id,code	project_id,code
+PASS	UNIQUE	work_item	uq_work_single_kind	project_id,single_kind	project_id,single_kind
+PASS	UNIQUE	work_status_history	uq_history_version	work_item_id,lock_version	work_item_id,lock_version
+PASS	VIEW	v_campaign_progress	v_campaign_progress	DEFINER	DEFINER
+PASS	VIEW	v_current_members	v_current_members	DEFINER	DEFINER
+PASS	VIEW	v_equipment_status	v_equipment_status	DEFINER	DEFINER
+PASS	VIEW	v_member_workload	v_member_workload	DEFINER	DEFINER
+PASS	VIEW	v_pending_reviews	v_pending_reviews	DEFINER	DEFINER

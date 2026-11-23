@@ -1,0 +1,29 @@
+{% extends 'shell.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block workspace %}
+<h1>{{ title }}</h1>
+<p><a href="{{ url_for('management.screen', module='tasks' if category == 'tasks' else 'review-center') }}">
+  {{ '打开任务操作页' if category == 'tasks' else '打开审核操作页' }}
+</a></p>
+<section class="panel records" data-endpoint="{{ endpoint }}" data-category="{{ category }}">
+  <form class="records-search" role="search">
+    <label class="visually-hidden" for="query">搜索{{ title }}</label>
+    <input class="form-control" id="query" name="q" maxlength="80" type="search" placeholder="按名称搜索">
+    <button class="btn btn-primary" type="submit">搜索</button>
+  </form>
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <caption class="visually-hidden">{{ title }}列表</caption>
+      <thead><tr>{% for column in columns %}<th scope="col">{{ column }}</th>{% endfor %}</tr></thead>
+      <tbody id="records-body"></tbody>
+    </table>
+  </div>
+  <p class="records-message" role="status">正在读取数据…</p>
+  <div class="records-pages">
+    <button class="btn btn-outline-secondary btn-sm" type="button" data-page="previous" disabled>上一页</button>
+    <span class="page-number">第 1 页</span>
+    <button class="btn btn-outline-secondary btn-sm" type="button" data-page="next" disabled>下一页</button>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='records.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'shell.html' %}
+{% block title %}工作台{% endblock %}
+{% block workspace %}
+<div class="dashboard" data-endpoint="{{ url_for('workbench.api_dashboard') }}" data-login="{{ url_for('auth.login') }}">
+  <header class="dashboard-header">
+    <div>
+      <h1>工作台</h1>
+      <p id="dashboard-updated" class="dashboard-updated" hidden></p>
+    </div>
+    <div class="dashboard-controls">
+      <label class="cohort-select" id="cohort-control" for="cohort-filter" hidden>
+        <span>统计届次</span>
+        <select id="cohort-filter" class="form-select form-select-sm"></select>
+      </label>
+      <button class="btn btn-outline-secondary btn-sm" type="button" id="dashboard-refresh">刷新数据</button>
+    </div>
+  </header>
+  <p class="dashboard-message" id="dashboard-message" role="status">正在读取工作台数据…</p>
+  <section class="dashboard-metrics" aria-label="数据概览" hidden>
+    {% set metrics = [
+      ('member_count', '当前成员', '人', 'roster'),
+      ('cohort_member_count', '届次成员', '人', 'roster'),
+      ('active_campaign_count', '进行中活动', '项', 'campaigns'),
+      ('pending_task_count', '待处理任务', '项', 'tasks'),
+      ('pending_review_count', '待我审核', '件', 'reviews'),
+      ('published_count', '已发布作品', '件', 'published')
+    ] %}
+    {% for key, title, unit, style in metrics %}
+    <article class="panel metric" data-metric="{{ key }}" data-accent="{{ style }}" hidden>
+      <h2>{{ title }}</h2>
+      <p><strong data-value>—</strong><span>{{ unit }}</span></p>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section id="dashboard-inbox" class="panel dashboard-panel" aria-labelledby="inbox-title" hidden>
+    <div class="dashboard-panel-title"><h2 id="inbox-title">工作待办</h2></div>
+    <div class="inbox-columns">
+      <section id="review-inbox" hidden>
+        <div class="inbox-heading"><h3>审核与交接</h3><a href="/manage/review-center">查看全部</a></div>
+        <ul class="inbox-list"></ul>
+      </section>
+      <section id="task-inbox" hidden>
+        <div class="inbox-heading"><h3>待处理任务</h3><a href="/manage/tasks?state=OPEN">查看全部</a></div>
+        <ul class="inbox-list"></ul>
+      </section>
+    </div>
+  </section>
+  <div class="dashboard-columns">
+    <section class="panel dashboard-panel workload-panel" id="workload-panel" aria-labelledby="workload-heading" hidden>
+      <div class="dashboard-panel-title">
+        <h2 id="workload-heading">工作量</h2>
+        <span id="workload-scope" class="dashboard-caption"></span>
+      </div>
+      <div class="workload-plot" hidden><canvas id="workload-chart" role="img" aria-label="各工作类型累计投入分钟"></canvas></div>
+      <p class="dashboard-message" id="workload-empty" hidden>暂无实际工作量记录。</p>
+      <details class="workload-data" hidden>
+        <summary>查看数据</summary>
+        <table class="table table-sm mb-0">
+          <thead><tr><th scope="col">工作类型</th><th scope="col">记录数</th><th scope="col">分钟</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </details>
+    </section>
+
+    <div class="dashboard-side">
+      <section class="panel dashboard-panel campaign-panel" id="campaign-panel" aria-labelledby="campaign-heading" hidden>
+        <div class="dashboard-panel-title">
+          <h2 id="campaign-heading">进行中活动</h2>
+          <span class="dashboard-caption">必需项目完成进度</span>
+        </div>
+        <ul id="campaign-list" class="campaign-list"></ul>
+        <p class="dashboard-message" id="campaign-empty" hidden>暂无进行中的活动。</p>
+      </section>
+
+      <section class="panel dashboard-panel camera-panel" id="camera-panel" aria-labelledby="camera-heading" hidden>
+        <div class="dashboard-panel-title">
+          <h2 id="camera-heading">相机状态</h2>
+          <span class="dashboard-caption" id="camera-total"></span>
+        </div>
+        <ul id="camera-list" class="camera-list"></ul>
+        <p class="dashboard-message" id="camera-empty" hidden>暂无相机记录。</p>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='vendor/chart-4.5.1.umd.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='dashboard.js') }}" defer></script>
+{% endblock %}

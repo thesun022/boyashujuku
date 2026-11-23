@@ -1,0 +1,9 @@
+Importing 01_create_database.sql
+Importing 02_create_tables.sql
+Importing 03_constraints_indexes.sql
+Importing 05_create_views.sql
+Importing 06_create_triggers.sql
+Importing 06b_create_procedures.sql
+Importing 06c_security_roles.sql
+Importing 04_reference_data.sql
+Importing 04_initial_data.sql

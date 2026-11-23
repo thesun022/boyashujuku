@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body %}
+<a class="visually-hidden-focusable skip-link" href="#main">跳到内容</a>
+<div class="app-layout">
+  <aside class="sidebar">
+    <a class="wordmark" href="{{ url_for('workbench.home') }}">
+      <img class="brand-mark" src="{{ url_for('static', filename='boya.png') }}" alt="" width="1080" height="1070">
+      <span>博雅传媒中心 <small>业务管理</small></span>
+    </a>
+    <nav aria-label="主菜单">
+      {% set links = [('workbench.home', '工作台', true), ('workbench.tasks', '我的任务', 'LOG_WORK' in g.identity.permissions), ('workbench.reviews', '待我审核', 'REVIEW' in g.identity.permissions)] %}
+      {% for endpoint, title, visible in links if visible %}
+      <a href="{{ url_for(endpoint) }}"{% if request.endpoint == endpoint %} aria-current="page"{% endif %}>{{ title }}</a>
+      {% endfor %}
+      {% set permissions = g.identity.permissions %}
+      {% set projects = 'MANAGE_PROJECT' in permissions or 'LOG_WORK' in permissions or 'REVIEW' in permissions %}
+      {% set operations = [
+        ('people', '人员管理', 'MANAGE_MEMBER' in permissions),
+        ('campaigns', '宣传活动', projects),
+        ('tasks', '任务管理', 'MANAGE_PROJECT' in permissions or 'LOG_WORK' in permissions),
+        ('assets', '素材管理', projects or 'REGISTER_ASSET' in permissions),
+        ('articles', '推文管理', projects),
+        ('videos', '视频管理', projects),
+        ('review-center', '审核管理' if 'REVIEW' in permissions else '作品交接',
+          'REVIEW' in permissions or 'PUBLISH' in permissions or 'SUBMIT' in permissions or 'ASSIGN_WORK' in permissions),
+        ('cameras', '相机管理', 'MANAGE_CAMERA' in permissions),
+        ('statistics', '统计分析', projects or 'MANAGE_MEMBER' in permissions or 'MANAGE_CAMERA' in permissions),
+        ('system', '系统管理', 'MANAGE_SYSTEM' in permissions)
+      ] %}
+      {% for slug, title, visible in operations if visible %}
+      <a href="{{ url_for('management.screen', module=slug) }}"{% if parent == slug %} aria-current="page"{% endif %}>{{ title }}</a>
+      {% endfor %}
+    </nav>
+  </aside>
+  <div class="work-area">
+    <header class="topbar">
+      <div class="user-info">
+        <span class="avatar" aria-hidden="true">{{ g.identity.display_name[:1] }}</span>
+        <div><strong>{{ g.identity.display_name }}</strong><small>{{ g.identity.titles|join(' · ') }}</small></div>
+      </div>
+      <form method="post" action="{{ url_for('auth.logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-outline-secondary btn-sm" type="submit">退出登录</button>
+      </form>
+    </header>
+    <main id="main" class="workspace" tabindex="-1">{% block workspace %}{% endblock %}</main>
+  </div>
+</div>
+{% endblock %}

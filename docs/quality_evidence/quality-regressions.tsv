@@ -1,0 +1,55 @@
+PASS	Q01 teacher return preserves stage and feedback
+PASS	Q02 teacher hands rework to minister
+PASS	Q03 returned version leaves review queue
+PASS	Q04 returned version cannot be published
+PASS	Q05 rework submission requires minister forwarding
+PASS	Q06 corrected and original versions retain distinct assets and reviews
+PASS	Q07 only the approved correction is published
+PASS	Q08 two projects share one external file metadata row
+PASS	Q09 project reference restricts shared metadata deletion
+PASS	Q10 remaining project still restricts shared metadata deletion
+PASS	Q11 historical submission alone restricts metadata deletion
+PASS	Q12 source metadata and historical bindings survive cleanup attempts
+PASS	bu_membership_period blocks backdated exit through recorded review
+PASS	Q13 current position changes and review retains original chief stage
+PASS	Q14 exited reviewer remains queryable and workload is preserved
+PASS	CHECK ck_account_enabled
+PASS	CHECK ck_account_hash
+PASS	CHECK ck_asset_uri
+PASS	CHECK ck_assignment_dates
+PASS	CHECK ck_campaign_dates
+PASS	CHECK ck_campaign_third
+PASS	CHECK ck_cohort_year
+PASS	CHECK ck_contribution_minutes
+PASS	CHECK ck_equipment_source
+PASS	CHECK ck_handover_recipient
+PASS	CHECK ck_membership_dates
+PASS	CHECK ck_position_dates
+PASS	CHECK ck_project_delivery
+PASS	CHECK ck_project_required
+PASS	CHECK ck_publication_url
+PASS	CHECK ck_review_feedback
+PASS	CHECK ck_submission_version
+PASS	CHECK ck_submission_third
+PASS	CHECK ck_work_editing
+PASS	CHECK ck_work_required
+PASS	CHECK ck_usage_range
+PASS	CHECK ck_usage_checkout
+PASS	CHECK ck_usage_return
+PASS	CHECK ck_usage_cancel
+PASS	ai_membership_period adds audit
+PASS	bi_membership_position rejects overlapping period
+PASS	bu_membership_position rejects rewriting prior position
+PASS	au_membership_period audits exit
+PASS	ai_account audit excludes authentication hash
+PASS	au_account audit records exit without authentication hash
+PASS	ai_account_role audits grants
+PASS	ad_account_role audits revocations
+PASS	ai_role_permission audits grants
+PASS	ad_role_permission audits revocations
+PASS	bu_work_item rejects writes without advancing version
+PASS	ai_work_item records the initial state
+PASS	au_work_item audits state transition
+PASS	bu_work_assignment rejects rewriting the assignment
+PASS	bi_work_contribution rejects contribution outside membership
+PASS	bu_equipment_usage protects returned reservation

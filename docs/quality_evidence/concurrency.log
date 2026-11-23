@@ -1,0 +1,3 @@
+PASS Work version conflict (second session waited 3998 ms)
+PASS Camera reservation overlaps (second session waited 3890 ms)
+PASS durable work state IN_PROGRESS:1 and exactly one camera reservation for work item 11

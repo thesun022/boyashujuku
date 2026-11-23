@@ -1,0 +1,139 @@
+Importing 07_test_database.sql
+test
+PASS 29 InnoDB utf8mb4 tables
+test
+PASS 29 primary keys
+test
+PASS 47 foreign keys
+test
+PASS 24 triggers
+test
+PASS five views
+test
+PASS 22 business routines
+test
+PASS active membership view
+test
+PASS same person can join again in a different cohort
+test
+PASS exit disables the account
+test
+PASS exit closes future assignment eligibility and keeps assignment history
+test
+PASS historical workload after exit
+test
+PASS workload credited to actual writer
+test
+PASS initial assignee receives no automatic workload
+test
+PASS original and replacement assignments remain visible
+test
+PASS two photographers contributed to the article
+test
+PASS actual collaborator workload includes unassigned work
+test
+PASS copy-edit workload
+test
+PASS chief review workload includes returned review
+test
+PASS independent project states and 66.67 percent campaign
+test
+PASS four immutable article version records
+test
+PASS chief returns to minister, minister forwards to original layout contributor
+test
+PASS article published with optional third stage disabled
+test
+PASS minister-edited video starts at chief, snapshots third stage at second review
+test
+PASS no minister self-review
+test
+PASS third reviewer can be selected while the project is already in review
+test
+PASS member-edited team video completes all four required stages
+test
+PASS owned camera returned; borrowed camera physically checked out
+test
+PASS automatic work status history
+test
+PASS publication audit trail
+test
+PASS third approval is mandatory when enabled
+test
+PASS unauthorized/self review rejected
+test
+PASS external reviewer cannot manage work
+test
+PASS stale optimistic version rejected
+test
+PASS exited member cannot receive a new assignment
+test
+PASS disabled account cannot log work
+test
+PASS invalid foreign key rejected
+test
+PASS duplicate equipment code rejected
+test
+PASS CHECK rejects zero minutes
+test
+PASS closed membership periods cannot overlap
+test
+PASS writing slot limit
+test
+PASS layout slot limit
+test
+PASS minister-only editing rejects member
+test
+PASS minister-edited task has one seat
+test
+PASS one active assignment per person on a multi-person task
+test
+PASS overlapping times rejected across different tasks
+test
+PASS adjacent reservation intervals permitted
+test
+PASS audit update prohibited
+test
+PASS audit delete prohibited
+test
+PASS write and trigger visible inside transaction
+test
+PASS rollback restores work state and version
+test
+PASS rollback removes trigger side effects
+test
+PASS rollback removes tentative reservations
+membership_id	display_name	cohort_code	position_code
+1	示例部长	2025	MINISTER
+2	示例主编	2025	CHIEF
+5	示例撰稿员	2026	MEMBER
+6	示例排版员	2026	MEMBER
+7	示例摄影甲	2026	MEMBER
+8	示例摄影乙	2026	MEMBER
+9	示例剪辑员	2026	MEMBER
+12	示例重新加入成员	2026	MEMBER
+person_id	cohort_code	work_type	entries	minutes
+1	2025	REVIEW	3	NULL
+1	2025	VIDEO_EDIT	1	110
+2	2025	COPY_EDIT	1	25
+2	2025	REVIEW	4	NULL
+5	2026	WRITING	1	75
+6	2026	LAYOUT	2	80
+7	2026	PHOTO	2	190
+7	2026	VIDEO_SHOOT	1	50
+8	2026	PHOTO	2	120
+9	2026	VIDEO_EDIT	2	180
+9	2026	VIDEO_SHOOT	1	80
+10	2025	PHOTO	1	45
+11	2026	VIDEO_EDIT	2	110
+project_title	version_no	review_stage	reviewer_name
+部长亲自剪辑视频	1	THIRD	示例三审领导
+campaign_code	project_code	project_status	campaign_percent
+SPORTS-2026	ARTICLE	PUBLISHED	66.67
+SPORTS-2026	PHOTO	COMPLETED	66.67
+SPORTS-2026	VIDEO	IN_PROGRESS	66.67
+VIDEO-REVIEW-LAB	LEADER-VIDEO	IN_REVIEW	0.00
+VIDEO-REVIEW-LAB	TEAM-VIDEO	PUBLISHED	0.00
+code	source	current_status	current_user_name	next_reservation
+CAM-DEMO-01	OWNED	AVAILABLE	NULL	NULL
+CAM-DEMO-02	BORROWED	IN_USE	示例剪辑员	NULL

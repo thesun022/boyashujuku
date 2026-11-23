@@ -1,0 +1,9 @@
+{% extends 'shell.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block workspace %}
+<h1>{{ title }}</h1>
+<p><a href="{{ url_for('management.file_route', asset_id=asset_id, mode='download') }}">下载 Word 原件</a></p>
+<article class="panel account-panel word-preview">
+  {% for paragraph in paragraphs %}<p>{{ paragraph }}</p>{% else %}<p>正文暂无可预览的文字。</p>{% endfor %}
+</article>
+{% endblock %}
